@@ -22,10 +22,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    import = [
-      ./generic.nix
-    ];
-
     boot = {
       initrd.kernelModules = [
         "vfio"

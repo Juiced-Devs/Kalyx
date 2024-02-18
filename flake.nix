@@ -9,11 +9,11 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
-  {
+  outputs = inputs@{ nixpkgs, self, ... }:
+  rec {
     lib = import ./lib nixpkgs.lib;
 
-    nixosModule = import ./modules/nixos;
-    homeManagerModule = import ./modules/home;
+    nixosModule = import ./modules/nixos lib;
+    homeManagerModule = import ./modules/home lib;
   };
 }
