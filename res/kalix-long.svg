@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="159.67972"
+   height="68.57634"
+   viewBox="0 0 149.69973 64.290318"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="kalix-long.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="-1.5909903"
+     inkscape:cy="4.9497475"
+     inkscape:window-width="1874"
+     inkscape:window-height="1034"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="149.69974"
+       height="64.290321"
+       id="page4"
+       margin="0"
+       bleed="0"
+       inkscape:export-filename="kalix-long.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </sodipodi:namedview>
+  <path
+     d="M 23.58,16.245 8.964,41.559 5.55,35.774 9.49,28.994 1.667,28.974 0,26.083 l 1.703,-2.956 11.135,0.035 4.002,-6.9 z M 41.714,25.389 27.1,0.074 l 6.716,-0.063 3.902,6.8 3.93,-6.765 3.337,0.002 1.7,2.953 -5.598,9.626 3.974,6.916 z"
+     fill="#7ebae4"
+     id="path1"
+     style="fill:#ffd072;fill-opacity:1;fill-rule:evenodd"
+     sodipodi:nodetypes="cccccccccccccccccccc" />
+  <g
+     id="g4"
+     style="fill:#f5f891;fill-opacity:1"
+     transform="translate(0,-3.969)">
+    <use
+       xlink:href="#B"
+       id="use2"
+       style="fill:#f5f891;fill-opacity:1;fill-rule:evenodd" />
+    <path
+       d="m 35.28,19.486 -29.23,-0.002 3.303,-5.848 7.84,0.022 -3.893,-6.785 1.67,-2.9 3.412,-0.004 5.537,9.66 7.976,0.016 z m 1.14,20.294 14.616,-25.313 3.413,5.785 -3.94,6.78 7.823,0.02 1.668,2.9 -1.703,2.956 -11.135,-0.035 -4.002,6.9 z"
+       id="path2"
+       style="fill:#f5f891;fill-opacity:1;fill-rule:evenodd" />
+  </g>
+  <defs
+     id="defs3">
+    <rect
+       x="71.913589"
+       y="35.503803"
+       width="159.34692"
+       height="61.164047"
+       id="rect2" />
+    <rect
+       x="59.676758"
+       y="68.575928"
+       width="18.063232"
+       height="22.539795"
+       id="rect1" />
+    <path
+       id="B"
+       d="m 18.305,30.642 14.615,25.314 -6.716,0.063 -3.902,-6.8 -3.93,6.765 -3.337,-0.002 -1.71,-2.953 5.598,-9.626 -3.974,-6.916 z" />
+  </defs>
+  <path
+     d="m 51.065418,63.852142 -14.614,-25.315 6.716,-0.063 3.902,6.8 3.93,-6.765 3.337,0.002 1.7,2.953 -5.598,9.626 3.974,6.916 z"
+     fill="#7ebae4"
+     id="path3"
+     style="fill:#acf8a5;fill-opacity:1;fill-rule:evenodd"
+     sodipodi:nodetypes="cccccccccc" />
+  <path
+     d="m 35.872633,38.912321 14.614,25.315 -6.716,0.063 -3.902,-6.8 -3.93,6.765 -3.337,-0.002 -1.7,-2.953 5.598,-9.626 -3.974,-6.916 z"
+     fill="#7ebae4"
+     id="path4"
+     style="fill:#9dd796;fill-opacity:1;fill-rule:evenodd"
+     sodipodi:nodetypes="cccccccccc" />
+  <text
+     xml:space="preserve"
+     transform="scale(0.93749999)"
+     id="text1"
+     style="white-space:pre;shape-inside:url(#rect1);display:inline;fill:#9dd796" />
+  <path
+     d="m 75.447266,41.111328 h 3.550781 V 52.203125 L 90.775391,41.111328 h 4.570312 L 82.320312,53.345703 96.277344,67.355469 H 91.601562 L 78.998047,54.716797 v 12.638672 h -3.550781 z m 31.746094,3.498047 -4.81641,13.060547 h 9.65039 z m -2.00391,-3.498047 h 4.02539 l 10.00196,26.244141 h -3.69141 l -2.39062,-6.732422 h -11.83008 l -2.390628,6.732422 h -3.74414 z m 17.85938,0 h 3.55078 v 23.255859 h 12.7793 v 2.988282 h -16.33008 z m 20.05664,0 h 3.55078 v 26.244141 h -3.55078 z m 9.35156,0 h 3.81445 l 6.52149,9.755859 6.55664,-9.755859 h 3.81445 l -8.4375,12.603516 9,13.640625 h -3.81445 l -7.38281,-11.16211 -7.43555,11.16211 h -3.83203 l 9.36914,-14.009766 z"
+     id="text2"
+     style="font-size:36px;white-space:pre;fill:#9dd796"
+     inkscape:label="text2"
+     transform="matrix(0.93749999,0,0,0.93749999,-13.168914,0.47614475)"
+     aria-label="KALIX" />
+</svg>
