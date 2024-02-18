@@ -21,26 +21,6 @@
         "type": "github"
       }
     },
-    "kalix": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-Ohe+PcEOlqQcIYRvgcHg0KcbaXeUNb4FNGtMgpsfELk=",
-        "path": "/nix/store/ikxzra469k277z9qrvq229gzrlz67gw0-source",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/ikxzra469k277z9qrvq229gzrlz67gw0-source",
-        "type": "path"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1708161998,
@@ -60,7 +40,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "kalix": "kalix",
         "nixpkgs": "nixpkgs"
       }
     }

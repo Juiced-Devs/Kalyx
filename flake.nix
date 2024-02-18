@@ -13,7 +13,12 @@
   rec {
     lib = import ./lib nixpkgs.lib;
 
-    nixosModule = import ./modules/nixos lib;
-    homeManagerModule = import ./modules/home lib;
+    homeModulePaths = lib.collectModules ./modules/home;
+    nixosModulePaths = lib.collectModules ./modules/nixos;
+
+    nixosModule = { 
+      home-manager.sharedModules = [{ imports = homeModulePaths; }];
+      imports = nixosModulePaths;
+    };
   };
 }

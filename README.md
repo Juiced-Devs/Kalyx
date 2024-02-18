@@ -1,7 +1,7 @@
-<img src="res/kalix-long.svg" alt="kalix logo" width="444"/>
+<img src="res/kalix-fractle.png" alt="kalix logo" width="1000"/>
 
 #
-Pronounced kay-licks, Kalix is an ultra-generalized, easy to use, and expansive set of NixOS modules. 
+Pronounced kay-licks, Kalix is an ultra-generalized, easy to use, and expansive set of NixOS modules, centered around creating an OS like ecosystem that is interoperable between any nixos config. 
 
 # History
 Kalix was spawned from KyleOS, a system repository shared between friends. After growing to a considerable size it became apparent that while the system had many benefits, it failed to scale.

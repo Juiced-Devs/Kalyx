@@ -37,7 +37,6 @@
           extraSpecialArgs = specialArgs;
           modules = [
             ./home.nix
-            kalix.homeManagerModule
           ];
       };
     };

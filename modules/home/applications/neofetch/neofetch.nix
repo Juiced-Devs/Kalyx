@@ -53,7 +53,10 @@ in
         # info "Locale" locale  # This only works on glibc systems.
 
         info cols
-    }
+      }
+
+      ascii_colors=(11 3 10 2)
+      image_source="${./neofetch}"
     '';
   };
 }
