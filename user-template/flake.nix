@@ -22,7 +22,7 @@
   in
   {
     nixosConfigurations = {
-      "test" = nixpkgs.lib.nixosSystem {
+      "template" = nixpkgs.lib.nixosSystem {
         inherit specialArgs system;
         modules = [
           ./configuration.nix
@@ -32,7 +32,7 @@
     };
 
     homeConfigurations = {
-      "sus@test" = home-manager.lib.homeManagerConfiguration {
+      "template" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { inherit system; };
           extraSpecialArgs = specialArgs;
           modules = [

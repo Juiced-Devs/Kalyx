@@ -11,10 +11,7 @@ let
 in
 {
   options.kalyx.neofetch = {
-    enable = mkOption {
-      type = types.bool;
-      default = true;
-    };
+    enable = mkEnableOption "Neofetch";
   };
 
   config = mkIf cfg.enable {
@@ -27,7 +24,7 @@ in
         info title
         info underline
         
-        distro="kalyx [NixOS] x86_64"
+        distro="Kalyx [NixOS] x86_64"
         info "OS" distro
         info "Host" model
         info "Kernel" kernel
@@ -61,7 +58,7 @@ in
       }
 
       ascii_colors=(11 3 10 2)
-      image_source="${./neofetch}"
+      image_source="${./kalyx-ansii}"
     '';
   };
 }

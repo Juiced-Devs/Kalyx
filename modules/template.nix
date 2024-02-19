@@ -15,6 +15,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    #=# KALYX DEPS #=#
+    kalyx = { };
+    #================#
+    
     
   };
 }

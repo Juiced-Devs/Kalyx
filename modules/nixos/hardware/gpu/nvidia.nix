@@ -36,8 +36,6 @@ in
       ];
     };
 
-    services.xserver.videoDrivers = ["nvidia"];
-
     environment.systemPackages = with pkgs; [
       egl-wayland
       libva-utils
@@ -73,6 +71,24 @@ in
     #   # WLR_BACKEND = "vulkan";
     #   # WLR_RENDERER = "vulkan";
     # })
+
+    # Home Manager fixes.
+    home-manager.sharedModules = [{
+      
+      # Hyprland steam dropdown menu fix.
+      wayland.windowManager.hyprland.settings = {
+        env = [
+          "GBM_BACKEND,nvidia-drm"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GL_VRR_ALLOWED,0"
+          "WLR_NO_HARDWARE_CURSORS,1"
+          "WLR_DRM_NO_ATOMIC,1"
+        ];
+      };
+    }];
+
+    services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
       modesetting.enable = true; #! THIS IS REQUIRED FOR HYPRLAND

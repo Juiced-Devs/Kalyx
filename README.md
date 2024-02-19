@@ -10,5 +10,5 @@ kalyx aims to solve this problem by providing a stable platform anyone can build
 
 </sup><sub><sub><sub>The real reason kalyx was born was because Deacon broke Kyle's configs</sub></sup></sup></sup>
 
-## Why the flower?
+# Why the flower?
 A calyx is term used in botany to refer to the protective cup-like structure of a flower. Originally our spinoff name of calyx 'kalyx' was temporary. After prototyping the logo we found it was easy to morph the Nix logo into a flower like shape, so we decided to keep the name.

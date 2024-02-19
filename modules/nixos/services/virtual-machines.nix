@@ -38,6 +38,8 @@ rec {
   };
  
   config = mkIf cfg.enable {
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_zen; # We do this because Linux Zen has better IOMMU group support.
+
     virtualisation = {
       libvirtd.enable = true;
       spiceUSBRedirection.enable = true;
