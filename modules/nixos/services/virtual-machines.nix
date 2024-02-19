@@ -7,10 +7,10 @@ let
     types
     mkMerge
     ;
-  cfg = config.kalix.virtualisation;
+  cfg = config.kalyx.virtualisation;
 in
 rec {
-  options.kalix.virtualisation = {
+  options.kalyx.virtualisation = {
     enable = mkEnableOption "virtualisation";
 
     cpuarch = mkOption { type = types.enum [ "intel" "amd" ]; };

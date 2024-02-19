@@ -7,10 +7,10 @@ let
     mkIf
     ;
 
-  cfg = config.kalix.NAME;
+  cfg = config.kalyx.NAME;
 in
 {
-  options.kalix.NAME = {
+  options.kalyx.NAME = {
     enable = mkEnableOption "DESCRIPTION";
   };
 

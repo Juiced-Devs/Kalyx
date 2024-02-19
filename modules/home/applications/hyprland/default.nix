@@ -16,7 +16,7 @@ let
     toString
     ;
 
-  cfg = config.kalix.hyprland;
+  cfg = config.kalyx.hyprland;
 
   mappedBindSubmodule = types.submodule {
     options = {
@@ -33,7 +33,7 @@ let
   };
 in
 {
-  options.kalix.hyprland = {
+  options.kalyx.hyprland = {
     enable = mkEnableOption "Hyprland";
 
     mappedBinds = mkOption {

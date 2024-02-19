@@ -7,10 +7,10 @@ let
     types
     ;
 
-  cfg = config.kalix.intel;
+  cfg = config.kalyx.intel;
 in
 {
-  options.kalix.intel = {
+  options.kalyx.intel = {
     enable = mkEnableOption "intel";
     noPowerManagement = mkOption {
       type = types.bool;

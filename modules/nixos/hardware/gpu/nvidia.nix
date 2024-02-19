@@ -8,10 +8,10 @@ let
     mkMerge
     ;
 
-  cfg = config.kalix.nvidia;
+  cfg = config.kalyx.nvidia;
 in
 {
-  options.kalix.nvidia = {
+  options.kalyx.nvidia = {
     enable = mkEnableOption "Nvidia";
     # GTX 1650 AND NEWER ONLY
     open = mkEnableOption "Open Driver";

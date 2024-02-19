@@ -1,5 +1,5 @@
 {
-  description = "Template config using Kalix.";
+  description = "Template config using kalyx.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kalix = {
+    kalyx = {
       url = "./..";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
@@ -26,7 +26,7 @@
         inherit specialArgs system;
         modules = [
           ./configuration.nix
-          kalix.nixosModule
+          kalyx.nixosModule
         ];
       };
     };

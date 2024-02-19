@@ -7,10 +7,10 @@ let
     mkIf
     ;
 
-  cfg = config.kalix.hyprland.nvidia;
+  cfg = config.kalyx.hyprland.nvidia;
 in
 {
-  options.kalix.hyprland.nvidia = {
+  options.kalyx.hyprland.nvidia = {
     enable = mkEnableOption "DESCRIPTION";
   };
 

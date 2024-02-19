@@ -21,7 +21,7 @@
         "type": "github"
       }
     },
-    "kalix": {
+    "kalyx": {
       "inputs": {
         "home-manager": [
           "home-manager"
@@ -32,12 +32,12 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-Ohe+PcEOlqQcIYRvgcHg0KcbaXeUNb4FNGtMgpsfELk=",
-        "path": "/nix/store/ikxzra469k277z9qrvq229gzrlz67gw0-source",
+        "narHash": "sha256-tHeVWR2/kIrWbAdqihD9QlpFl9L4xQx1xqUHh2UDZ+M=",
+        "path": "/nix/store/nw14nk673c6gsf5nags4qm24sqmcwas4-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ikxzra469k277z9qrvq229gzrlz67gw0-source",
+        "path": "/nix/store/nw14nk673c6gsf5nags4qm24sqmcwas4-source",
         "type": "path"
       }
     },
@@ -60,7 +60,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "kalix": "kalix",
+        "kalyx": "kalyx",
         "nixpkgs": "nixpkgs"
       }
     }

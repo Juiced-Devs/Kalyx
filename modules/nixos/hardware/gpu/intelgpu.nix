@@ -7,10 +7,10 @@ let
     types
     ;
 
-  cfg = config.kalix.intelgpu;
+  cfg = config.kalyx.intelgpu;
 in
 {
-  options.kalix.intelgpu = {
+  options.kalyx.intelgpu = {
 	  enable = mkEnableOption "intelgpu";
   };
 

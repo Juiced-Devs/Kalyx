@@ -7,10 +7,10 @@ let
     types
     ;
 
-  cfg = config.kalix.flakes;
+  cfg = config.kalyx.flakes;
 in
 {
-  options.kalix.flakes = {
+  options.kalyx.flakes = {
     enable = mkOption {
       type = types.bool;
       default = true;

@@ -7,10 +7,10 @@ let
     mkIf
     ;
 
-  cfg = config.kalix.gpu;
+  cfg = config.kalyx.gpu;
 in
 {
-  options.kalix.gpu = {
+  options.kalyx.gpu = {
     enable = mkEnableOption "graphics";
   };
 

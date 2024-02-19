@@ -7,10 +7,10 @@ let
     mkIf
     ;
 
-  cfg = config.kalix.neofetch;
+  cfg = config.kalyx.neofetch;
 in
 {
-  options.kalix.neofetch = {
+  options.kalyx.neofetch = {
     enable = mkOption {
       type = types.bool;
       default = true;
@@ -18,11 +18,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      neofetch
+    ];
+
     home.file.".config/neofetch/config.conf".text = ''
       print_info() {
         info title
         info underline
-        distro="Kalix [NixOS] x86_64"
+        
+        distro="kalyx [NixOS] x86_64"
         info "OS" distro
         info "Host" model
         info "Kernel" kernel

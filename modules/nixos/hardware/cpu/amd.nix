@@ -7,10 +7,10 @@ let
     types
     ;
 
-  cfg = config.kalix.amd;
+  cfg = config.kalyx.amd;
 in
 {
-  options.kalix.amd = {
+  options.kalyx.amd = {
     enable = mkEnableOption "amd";
   };
 

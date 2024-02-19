@@ -25,12 +25,12 @@ let
     };
   };
 
-  cfg = config.kalix.hm;
+  cfg = config.kalyx.hm;
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  options.kalix.hm = {
+  options.kalyx.hm = {
     enable = mkEnableOption "Enable home-manager globally";
     extraConfig = mkOption {
       type = types.attrs;

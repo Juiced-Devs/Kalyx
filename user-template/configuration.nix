@@ -78,7 +78,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  kalix.hm = {
+  kalyx.hm = {
     enable = true;
     users.amongum = {
       enable = true;
