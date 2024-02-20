@@ -47,7 +47,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.mappedBinds != { }) {
     wayland.windowManager.hyprland = {
       settings = {
         bind = mapAttrsToList (_: v: mapBind v.bindMap v.binds) cfg.mappedBinds;
