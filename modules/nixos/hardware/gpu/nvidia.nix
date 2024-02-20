@@ -75,7 +75,7 @@ in
     # Home Manager fixes.
     home-manager.sharedModules = [{
       
-      # Hyprland steam dropdown menu fix.
+      # Hyprland Nvidia fixes.
       wayland.windowManager.hyprland.settings = {
         env = [
           "GBM_BACKEND,nvidia-drm"

@@ -31,11 +31,6 @@ in
       type = types.str;
       default = "SUPER";
     };
-
-    extraConfig = mkOption {
-      type = types.lines;
-      default = "";
-    };
   };
 
   config = mkIf cfg.enable {

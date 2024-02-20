@@ -1,7 +1,7 @@
 <img src="res/kalyx-fractle.png" alt="kalyx logo" width="1000"/>
 
 #
-Pronounced kay-licks, Kalyx is an ultra-generalized, easy to use, and expansive set of NixOS modules, centered around creating an OS-like ecosystem that is interoperable between any NixOS config. 
+Pronounced kay-licks, Kalyx is an ultra-generalized, easy to use, and expansive set of NixOS modules, centered around creating an OS like ecosystem that is interoperable between any nixos config. Kalyx can be thought of as a distribution of NixOS.
 
 # History
 Kalyx was spawned from KyleOS, a system repository shared between friends. After growing to a considerable size it became apparent that while the system had many benefits, it failed to scale.
