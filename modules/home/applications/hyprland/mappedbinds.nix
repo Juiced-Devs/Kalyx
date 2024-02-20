@@ -41,7 +41,7 @@ let
 in
 {
   options.kalyx.hyprland = {
-    mappedBinds = {
+    mappedBinds = mkOption {
       type = types.attrsOf mappedBindSubmodule;
       default = { };
     };
