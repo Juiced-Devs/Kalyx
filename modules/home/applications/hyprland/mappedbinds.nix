@@ -24,7 +24,7 @@ let
         type = with types; attrsOf (funtionTo (functionTo str));
       };
     };
-  }
+  };
 
   mapBind = (bindMap: binds:
     let
