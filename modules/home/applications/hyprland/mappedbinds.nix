@@ -21,15 +21,14 @@ let
         type = with types; attrsOf str;
       };
       binds = {
-        type = with types; attrsOf (funtionTo (functionTo str));
+        type = with types; attrsOf (functionTo (functionTo str));
       };
     };
   };
 
+  concatMapAttrsToList = f: a: lib.concatLists (mapAttrsToList f a);
+
   mapBind = (bindMap: binds:
-    let
-      concatMapAttrsToList = f: a: lib.concatLists (mapAttrsToList f a);
-    in
     (concatMapAttrsToList
       (x: y:
         (mapAttrsToList
@@ -50,7 +49,7 @@ in
   config = mkIf (cfg.mappedBinds != { }) {
     wayland.windowManager.hyprland = {
       settings = {
-        bind = mapAttrsToList (_: v: mapBind v.bindMap v.binds) cfg.mappedBinds;
+        bind = concatMapAttrsToList (_: v: mapBind v.bindMap v.binds) cfg.mappedBinds;
       };
     };
   };
