@@ -22,7 +22,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "Kalyx";
+  networking.hostName = "kalyx";
 
   # Enable networking
   networking.networkmanager.enable = true;
