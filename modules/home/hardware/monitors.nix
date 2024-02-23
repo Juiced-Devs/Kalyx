@@ -1,3 +1,11 @@
+###############################
+#           WARNING           #
+###############################
+
+# Unless using only Home Manager or trying to configure an override for a specific user,
+# you should probably use the NixOS module for monitors as it makes these applications
+# to all home environments, syncronizing the monitor config system wide.
+
 { config, inputs, lib, pkgs, ... }:
 let
   inherit (lib)
@@ -14,7 +22,8 @@ in
   # Finally! A standardized monitor system where I don't gotta mess with my configs every time I try a new WM.
   # These changes apply to home manager and nixos, meaning you can setup your TTY's to follow your monitor configuration automatically.
   # TODO: add automatic TTY adjustments.
-  options.kalyx.monitors = { # TODO: Refactor to submodule
+  options.kalyx.monitors = {
+    disableWarning = mkEnableOption "Disable the 'you should be using the Nixos module' warning";
     monitors = mkOption {
       type = types.listOf types.attrs;
       default = [
@@ -48,15 +57,12 @@ in
   };
 
   config = {
-    #=# KALYX DEPS #=#
-    kalyx = { };
-    #================#
-    
-    #=# GLOBAL HOME MANAGER #=#
-    home-manager.sharedModules = [{
-      kalyx.monitors.disableWarning = lib.mkDefault (cfg.monitors != []);
-      # TODO: After monitors refactor to submodule, set Home Manager options. 
-    }];
-    #=========================#
+    warnings =
+      if (!(cfg.disableWarning) && cfg.monitors != [])
+      then [ ''KALYX WARNING: 
+       - You should be using the Kalyx NixOS module to declare monitor configs. It will automatically sync the home module.
+       - Only configure monitors from the Home Manager scope if you are trying to override per user.
+       - Use ``kalyx.monitors.disableWarning = true;`` to disable this warning.'' ]
+      else [];
   };
 }
