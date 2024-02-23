@@ -7,11 +7,11 @@ let
     mkIf
     ;
 
-  cfg = config.kalyx.NAME;
+  cfg = config.kalyx.steam;
 in
 {
-  options.kalyx.NAME = {
-    enable = mkEnableOption "DESCRIPTION";
+  options.kalyx.steam = {
+    enable = mkEnableOption "Steam";
   };
 
   config = mkIf cfg.enable {
@@ -19,13 +19,15 @@ in
     kalyx = { };
     #================#
     
+    # Enable Steam hardware (Steam Controller, HTC Vive, etc...)
+    hardware.steam-hardware.enable = true;
+
     programs.steam = {
       enable = true;
       package = pkgs.steam-small.override {
         extraEnv = {
           MANGOHUD = true;
           OBS_VKCAPTURE = true;
-          RADV_TEX_ANISO = 16;
         };
         extraLibraries = p: with p; [
           atk
@@ -43,7 +45,7 @@ in
           "minsize 1 1, title:^()$,class:^(steam)$"
         ];
       };
-      
+
     }];
   };
 }
