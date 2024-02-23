@@ -17,10 +17,10 @@ let
 
   mappedBindSubmodule = types.submodule {
     options = {
-      bindMap = {
+      bindMap = mkOption {
         type = with types; attrsOf str;
       };
-      binds = {
+      binds = mkOption {
         type = with types; attrsOf (functionTo (functionTo str));
       };
     };

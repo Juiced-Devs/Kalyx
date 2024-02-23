@@ -17,7 +17,8 @@
       mappedBinds = { # Kalyx offeres a convenient way to set hyprland binds that follow a user defined mapping.
                       # For example, we can create workspace bindings by mapping the number keys to their respective workspace numbers,
                       # or we can set window bindings by mapping the arrow keys to their respective directions.
-        workspace = { # These names are arbitrary, feel free to name them something sensible
+
+        workspace = { # <- These names are arbitrary, feel free to name them something sensible, e.g: something = {}, would do the same thing here.
           bindMap = {
             "1" = "1";
             "2" = "2";
@@ -30,6 +31,7 @@
             "9" = "9";
             "0" = "10";
           };
+
           binds = { # Binds are defined as a function that returns a string and accepts two arguments, where the arguments are provided by the bindMap attrset.
             moveFocusTo = x: y: "${modKey},${x},workspace,${y}"; # Once again, these names are arbitrary and are intended to provide convenience and self-documentation.
             moveWindowTo = x: y: "${modKey}+SHIFT,${x},movetoworkspace,${y}"; # Syntax is exactly the same as configuring Hyprland normally.
