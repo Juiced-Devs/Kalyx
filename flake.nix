@@ -11,10 +11,11 @@
 
   outputs = inputs@{ nixpkgs, self, ... }:
   rec {
-    lib = import ./lib nixpkgs.lib;
+    kalyxlib = import ./lib nixpkgs.lib;
+    specialArgs = { inherit kalyxlib; };
 
-    homeModulePaths = lib.collectModules ./modules/home;
-    nixosModulePaths = lib.collectModules ./modules/nixos;
+    homeModulePaths = kalyxlib.collectModules ./modules/home;
+    nixosModulePaths = kalyxlib.collectModules ./modules/nixos;
 
     nixosModule = { 
       home-manager.sharedModules = [{ imports = homeModulePaths; }];

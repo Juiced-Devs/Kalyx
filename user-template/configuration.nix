@@ -6,8 +6,6 @@
   ];
   
   kalyx = {
-    nvidia.enable = true;
-
     home-manager = {
       enable = true;
       users.username = {

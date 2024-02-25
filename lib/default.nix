@@ -1,5 +1,4 @@
-lib:
-rec {
+lib: rec {
   readDirPaths = dir: 
     (lib.mapAttrs
       (n: v:
