@@ -28,7 +28,10 @@ in
       pavucontrol
     ];
 
-    hardware.pulseaudio.enable = mkIf (cfg.soundServer == "pulse") false;
+    hardware.pulseaudio = mkIf (cfg.soundServer == "pulse") {
+      enable = true;
+      package = pkgs.pulseaudioFull; # Install all the codecs for pulseaudio.
+    };
 
     kalyx.pipewire.enable = (cfg.soundServer == "pipewire"); 
     services.pipewire = mkIf (cfg.soundServer == "pipewire") {
