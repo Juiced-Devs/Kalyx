@@ -1,18 +1,36 @@
 { config, pkgs, ... }:
-
 {
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     ./hardware-configuration.nix
   ];
-  
-  kalyx = {
-    home-manager = {
+
+  # Setup users.
+  users.users.username = {
+    isNormalUser = true;
+    description = "A template user account for Kalyx with the name 'username'";
+    extraGroups = [ "networkmanager" "wheel" ];
+  };
+  kalyx.home-manager = {
+    enable = true;
+    users.username = {
       enable = true;
-      users.username = {
-        enable = true;
-        configs = [ ./home.nix ];
-      };
+      configs = [ ./home.nix ];
     };
+  };
+  
+  # Setup Kalyx functionality.
+  kalyx = {
+    # Authentication toolkit setup for kalyx using gnome keyring and gnupg.
+    authentication = {
+      enable = true;
+    };
+    # Enable sound with pipewire or pulse.
+    sound = {
+      enable = true;
+      soundServer = "pipewire"; # This can be 'pipewire' (default) or 'pulse'.
+    };                          # NOTE: Pipewire can be enabled seperetly without audio using 'kalyx.pipewire.enable = true';
   };
 
   # TODO: Port to Kalyx module
@@ -40,7 +58,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
   services.xserver = {
     layout = "us";
     xkbVariant = "";
@@ -49,28 +67,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # TODO: Migrate Pipewire and Pulse to Kalyx module
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.username = {
-    isNormalUser = true;
-    description = "A template user account for Kalyx with the name 'username'";
-    extraGroups = [ "networkmanager" "wheel" ]; # TODO: make a shared user groups variable so Kalyx modules can interact with global user group perms.
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Set a kernel! Comment this out to get the regular Linux LTS kernel.
   boot.kernelPackages = pkgs.linuxPackages_zen; 
 
@@ -78,16 +74,8 @@
     firefox
   ];
 
-  # TODO: Deal with these inside an authentication Kalyx module.
-  programs.dconf.enable = true;
   programs.git.enable = true;
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  security.rtkit.enable = true;
 
   # List services that you want to enable:
 
