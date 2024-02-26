@@ -12,6 +12,21 @@ in
 {
   options.kalyx.neofetch = {
     enable = mkEnableOption "Neofetch";
+
+    imageSource = mkOption {
+      type = types.path;
+      default = "";
+    };
+
+    distroName = mkOption {
+      type = types.str;
+      default = "";
+    };
+
+    asciiColors = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -24,7 +39,7 @@ in
         info title
         info underline
         
-        distro="Kalyx [NixOS] x86_64"
+        ${if (cfg.distroName != "") then (''distro="${cfg.distroName} x86_64"'') else ""}
         info "OS" distro
         info "Host" model
         info "Kernel" kernel
@@ -57,8 +72,8 @@ in
         info cols
       }
 
-      ascii_colors=(11 3 10 2)
-      image_source="${./kalyx-ansii}"
+      ${if (cfg.asciiColors != "") then ("ascii_colors=(${cfg.asciiColors})") else ""}
+      ${if (cfg.imageSource != "") then ("image_source=${cfg.imageSource}") else ""}
     '';
   };
 }

@@ -3,7 +3,7 @@
 ###############################
 
 # Unless using only Home Manager or trying to configure an override for a specific user,
-# you should probably use the NixOS module for monitors as it makes these applications
+# you should probably use the Kalyx NixOS module for monitors as it makes these applications
 # to all home environments, syncronizing the monitor config system wide.
 
 { config, inputs, lib, pkgs, ... }:

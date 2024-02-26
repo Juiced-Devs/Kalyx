@@ -31,6 +31,8 @@
       enable = true;
       soundServer = "pipewire"; # This can be 'pipewire' (default) or 'pulse'.
     };                          # NOTE: Pipewire can be enabled seperetly without audio using 'kalyx.pipewire.enable = true';
+    
+    branding.enable = true; # Enable the Kalyx branding.
   };
 
   # TODO: Port to Kalyx module
