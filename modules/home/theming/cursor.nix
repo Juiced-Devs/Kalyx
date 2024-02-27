@@ -34,6 +34,7 @@ in
     '';
 
     home.pointerCursor = {
+      gtk.enable = true;
       size = lib.mkForce cfg.size;
       x11.defaultCursor = lib.mkForce cfg.theme;
       x11.enable = true;
