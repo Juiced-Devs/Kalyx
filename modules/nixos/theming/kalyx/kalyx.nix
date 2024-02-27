@@ -16,14 +16,18 @@ in
 
   config = mkIf cfg.enable {
     #=# KALYX DEPS #=#
-    kalyx = { };
+    kalyx = {
+      wallpaper.enable = lib.mkDefault true;
+      wallpaper.image = lib.mkDefault ../../../../res/wallpaper.png;
+    };
 
     home-manager.sharedModules = [{
-      kalyx = { 
+      kalyx = {
         neofetch = {
-          imageSource = ./kalyx-ansii;
-          distroName = "Kalyx";
-          asciiColors = "11 3 10 2";
+          enable = lib.mkDefault true;
+          imageSource = lib.mkDefault ./kalyx-ansii;
+          distroName = lib.mkDefault "Kalyx";
+          asciiColors = lib.mkDefault "11 3 10 2";
         };
       };
     }];
