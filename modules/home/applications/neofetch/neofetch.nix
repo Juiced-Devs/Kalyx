@@ -14,8 +14,8 @@ in
     enable = mkEnableOption "Neofetch";
 
     imageSource = mkOption {
-      type = types.path;
-      default = "";
+      type = types.nullOr types.path;
+      default = null;
     };
 
     distroName = mkOption {
@@ -73,7 +73,7 @@ in
       }
 
       ${if (cfg.asciiColors != "") then ("ascii_colors=(${cfg.asciiColors})") else ""}
-      ${if (cfg.imageSource != "") then ("image_source=${cfg.imageSource}") else ""}
+      ${if (cfg.imageSource != null) then ("image_source=${cfg.imageSource}") else ""}
     '';
   };
 }
