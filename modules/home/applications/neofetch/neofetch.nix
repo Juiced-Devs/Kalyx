@@ -19,13 +19,13 @@ in
     };
 
     distroName = mkOption {
-      type = types.str;
-      default = "";
+      type = types.nullOr types.str;
+      default = null;
     };
 
     asciiColors = mkOption {
-      type = types.str;
-      default = "";
+      type = types.nullOr types.str;
+      default = null;
     };
   };
 
@@ -39,7 +39,7 @@ in
         info title
         info underline
         
-        ${if (cfg.distroName != "") then (''distro="${cfg.distroName} x86_64"'') else ""}
+        ${if (cfg.distroName != null) then (''distro="${cfg.distroName} x86_64"'') else ""}
         info "OS" distro
         info "Host" model
         info "Kernel" kernel
@@ -72,7 +72,7 @@ in
         info cols
       }
 
-      ${if (cfg.asciiColors != "") then ("ascii_colors=(${cfg.asciiColors})") else ""}
+      ${if (cfg.asciiColors != null) then ("ascii_colors=(${cfg.asciiColors})") else ""}
       ${if (cfg.imageSource != null) then ("image_source=${cfg.imageSource}") else ""}
     '';
   };
