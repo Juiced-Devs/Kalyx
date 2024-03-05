@@ -15,6 +15,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.xserver.enable = true;
+
     hardware.opengl = {
       driSupport = true;
       driSupport32Bit = true;

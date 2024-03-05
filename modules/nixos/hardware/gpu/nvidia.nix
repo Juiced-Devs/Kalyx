@@ -22,6 +22,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    kalyx.gpu = true;
+
     boot = {
       initrd.kernelModules = [
         "vfio"
@@ -88,7 +90,6 @@ in
       };
     }];
 
-    services.xserver.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
