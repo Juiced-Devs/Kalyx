@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    kalyx.gpu = true;
+    kalyx.gpu.enable = true;
 
     boot.initrd.kernelModules = [ "amdgpu" ];
   };

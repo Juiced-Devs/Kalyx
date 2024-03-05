@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    kalyx.gpu = true;
+    kalyx.gpu.enable = true;
 
     nixpkgs.config.packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
