@@ -28,7 +28,7 @@ let
   cfg = config.kalyx.home-manager;
 in
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  #imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   options.kalyx.home-manager = {
     enable = mkEnableOption "Enable home-manager globally";

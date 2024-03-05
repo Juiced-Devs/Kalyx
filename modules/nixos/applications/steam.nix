@@ -45,7 +45,6 @@ in
           "minsize 1 1, title:^()$,class:^(steam)$"
         ];
       };
-
     }];
   };
 }
