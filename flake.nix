@@ -18,5 +18,8 @@
     nixosModules = { 
       imports = nixosModulePaths;
     };
+
+    adminGroups = [];
+    universalGroups = [];
   };
 }
