@@ -13,10 +13,10 @@ let
     mkIf
     ;
 
-  cfg = config.kalyx.wallpaper;
+  cfg = config.kalyx.theming.wallpaper;
 in
 {
-  options.kalyx.wallpaper = {
+  options.kalyx.theming.wallpaper = {
     enable = mkEnableOption "Wallpaper";
 
     image = mkOption {

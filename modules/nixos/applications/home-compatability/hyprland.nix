@@ -24,6 +24,14 @@ in
   };
 
   config = mkIf cfg.enable {
+    # home-manager.sharedModules = let
+    #   hyprpkg = config.programs.hyprland.finalPackage;
+    # in [{
+    #   wayland.windowManager.hyprland.package = lib.mkForce hyprpkg;
+    # }];
+
+    programs.dconf.enable = true;
+
     programs.hyprland = {
       enable = true;
     };

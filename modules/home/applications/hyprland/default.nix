@@ -22,28 +22,30 @@ in
   options.kalyx.hyprland = {
     enable = mkEnableOption "Hyprland";
 
-    terminalEmulator = mkOption {
-      type = types.str;
-    };
-
-    modKey = mkOption {
-      type = types.str;
-      default = "SUPER";
+    clipboard = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+      };
     };
   };
 
   config = mkIf cfg.enable {
     #=# KALYX DEPS #=#
     kalyx = {
-      cursor.enable = true;
+      theming.cursor.enable = true;
     };
     #================#
+
+    home.packages = with pkgs; [
+      (mkIf cfg.clipboard.enable wl-clipboard)
+      (mkIf cfg.clipboard.enable wl-clip-persist)
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
       
       settings = let
-        mod = cfg.modKey;
         backend = "swaybg";  # For now this is statically set as swaybg, I plan on making an auto configurator that selects
                              # the best backend for what you want to do. Lets say you want an animated wallpaper, theoretically the backend would choose swww.
       in {
@@ -56,9 +58,14 @@ in
           "XDG_CURRENT_DESKTOP,Hyprland"
           "XDG_SESSION_TYPE,wayland"
           "XDG_SESSION_DESKTOP,Hyprland"
+          "MOZ_DISABLE_WAYLAND_PROXY,1" # This is a temporary fix because firefox caused a 475GB file to be created on my system. https://bugzilla.mozilla.org/show_bug.cgi?id=1882449
+          "MOZ_ENABLE_WAYLAND,1"
         ];
 
-        exec = mkIf ((backend == "swaybg") && config.kalyx.wallpaper.enable) "${pkgs.swaybg}/bin/swaybg -i ${config.kalyx.wallpaper.image}";
+        exec = [
+          (mkIf ((backend == "swaybg") && config.kalyx.theming.wallpaper.enable) "${pkgs.swaybg}/bin/swaybg -i ${config.kalyx.theming.wallpaper.image}")
+          (mkIf cfg.clipboard.enable "wl-clip-persist --clipboard regular")
+        ];
 
         misc = {
           disable_hyprland_logo = true;

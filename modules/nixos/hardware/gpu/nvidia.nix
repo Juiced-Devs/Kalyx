@@ -90,7 +90,13 @@ in
       };
     }];
 
+    boot.extraModprobeConfig = ''
+      options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    '';
+
     services.xserver.videoDrivers = ["nvidia"];
+
+    programs.hyprland.enableNvidiaPatches = lib.mkDefault true;
 
     hardware.nvidia = {
       modesetting.enable = true; #! THIS IS REQUIRED FOR HYPRLAND

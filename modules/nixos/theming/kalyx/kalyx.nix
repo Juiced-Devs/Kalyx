@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     #=# KALYX DEPS #=#
-    kalyx = {
+    kalyx.theming = {
       wallpaper.enable = lib.mkDefault true;
       wallpaper.image = lib.mkDefault ../../../../res/wallpaper.png;
     };

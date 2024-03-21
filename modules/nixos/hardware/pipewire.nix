@@ -1,3 +1,10 @@
+###########
+# WARNING #
+###########
+#
+# YOU SHOULD BE USING THE SOUND MODULE UNLESS YOU ONLY WANT TO USE PIPEWIRE WITHOUT SOUND.
+#
+
 { config, lib, pkgs, ... }:
 let
   inherit (lib)

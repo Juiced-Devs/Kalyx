@@ -1,25 +1,32 @@
 {
   description = "General purpose, easy to use base modules for NixOS";
 
-  inputs = { };
-
-  outputs = inputs@{ nixpkgs, self, ... }:
-  rec {
-    kalyxlib = import ./lib nixpkgs.lib;
-    specialArgs = { inherit kalyxlib; };
-
-    homeModulePaths = kalyxlib.collectModules ./modules/home;
-    nixosModulePaths = kalyxlib.collectModules ./modules/nixos;
-
-    homeManagerModules = {
-      imports = homeModulePaths;
-    };
-
-    nixosModules = { 
-      imports = nixosModulePaths;
-    };
-
-    adminGroups = [];
-    universalGroups = [];
+  inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
+
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; }
+      (toplevel@ {config, flake-parts-lib, ...}: #
+      let
+        inherit (flake-parts-lib) importApply;
+
+        flakeModules = {
+          home-manager = importApply ./modules/home toplevel;
+          nixos = importApply ./modules/nixos toplevel;
+          libraries = importApply ./libraries toplevel;
+        };
+      in {
+        imports = with flakeModules; [
+          home-manager
+          nixos
+          libraries
+        ];
+
+        flake = {
+          inherit flakeModules;
+          adminGroups = [ "libvirtd" ];
+          universalGroups = [];
+        };
+      });
 }

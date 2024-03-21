@@ -6,10 +6,10 @@ let
     mkOption
     types
     ;
-  cfg = config.kalyx.cursor;
+  cfg = config.kalyx.theming.cursor;
 in
 {
-  options.kalyx.cursor = {
+  options.kalyx.theming.cursor = {
     enable = mkEnableOption "cursor";
 
     package =  mkOption {
@@ -29,9 +29,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    wayland.windowManager.hyprland.extraConfig = ''
-      exec-once = hyprctl setcursor ${cfg.theme} ${builtins.toString cfg.size}
-    '';
+    wayland.windowManager.hyprland.settings.exec-once = [ "hyprctl setcursor ${cfg.theme} ${builtins.toString cfg.size}" ];
 
     home.pointerCursor = {
       gtk.enable = true;

@@ -16,6 +16,7 @@ in
       type = types.enum [ "gnome" ];
       default = "gnome";
     };
+    allowPowerOff = mkEnableOption "Allow any user to power off the system.";
   };
 
   config = mkIf cfg.enable {
@@ -47,6 +48,25 @@ in
     services.yubikey-agent.enable = (cfg.keyringToolkit == "gnupg");
     programs.dconf.enable = true;
     programs.mtr.enable = true;
+    
+
+    # PolKit
+    security.polkit.enable = true;
+    systemd = {
+      user.services.polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+            Restart = "on-failure";
+            RestartSec = 1;
+            TimeoutStopSec = 10;
+          };
+      };
+    };
 
     # general
     services.dbus.packages = [ 
