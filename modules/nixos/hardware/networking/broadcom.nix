@@ -15,6 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    boot.kernelModules = [ "wl" "b43" ];
     boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   };
 }

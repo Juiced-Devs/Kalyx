@@ -63,7 +63,7 @@ in
         ];
 
         exec = [
-          (mkIf ((backend == "swaybg") && config.kalyx.theming.wallpaper.enable) "${pkgs.swaybg}/bin/swaybg -i ${config.kalyx.theming.wallpaper.image}")
+          (mkIf ((backend == "swaybg") && config.kalyx.theming.wallpaper.enable) "${pkgs.swaybg}/bin/swaybg -i ${config.kalyx.theming.wallpaper.image} -m fill")
           (mkIf cfg.clipboard.enable "wl-clip-persist --clipboard regular")
         ];
 

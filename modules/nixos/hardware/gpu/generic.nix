@@ -16,6 +16,7 @@ in
 
   config = mkIf cfg.enable {
     services.xserver.enable = true;
+    hardware.enableRedistributableFirmware = true;    
 
     hardware.opengl = {
       driSupport = true;

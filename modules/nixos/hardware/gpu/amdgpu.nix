@@ -11,12 +11,14 @@ let
 in
 {
   options.kalyx.amdgpu = {
-	  enable = mkEnableOption "amdgpu";
+    enable = mkEnableOption "amdgpu";
   };
 
   config = mkIf cfg.enable {
     kalyx.gpu.enable = true;
 
+    hardware.enableRedistributableFirmware = true;    
+    services.xserver.videoDrivers = [ "amdgpu" ];
     boot.initrd.kernelModules = [ "amdgpu" ];
   };
 }
