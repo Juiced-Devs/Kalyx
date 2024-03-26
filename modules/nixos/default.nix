@@ -29,6 +29,7 @@ in
     sound = import ./hardware/sound/sound.nix;
     pipewireNoSound = import ./hardware/pipewire.nix;
     bluetooth = import ./hardware/bluetooth.nix;
+    cameras = import ./hardware/cameras.nix;
     monitors = import ./hardware/monitors.nix;
     printing = import ./hardware/printing.nix;
     virtual-machines = import ./services/virtual-machines/virtual-machines.nix;

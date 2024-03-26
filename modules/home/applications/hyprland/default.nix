@@ -37,6 +37,10 @@ in
     };
     #================#
 
+    programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+    ];
+
     home.packages = with pkgs; [
       (mkIf cfg.clipboard.enable wl-clipboard)
       (mkIf cfg.clipboard.enable wl-clip-persist)

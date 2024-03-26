@@ -18,6 +18,7 @@ in
   config.flake.homeManagerModules = {
     hyprland = import ./applications/hyprland/default.nix;
     hyprlandMappedBinds = import ./applications/hyprland/mapped-binds.nix;
+    hyprlandScreenshare = import ./applications/hyprland/screenshare.nix;
     tofi = import ./applications/launchers/tofi/tofi.nix;
     discord = import ./applications/discord.nix;
     neofetch = import ./applications/neofetch.nix;

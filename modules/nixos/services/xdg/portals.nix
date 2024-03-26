@@ -34,7 +34,10 @@ in
       default = "gtk";
     };
     
-    useHyprlandPortalInsteadOfWLR = mkEnableOption "Use classic Hyprland portal instead of the WLR portal with the custom screenshare slurp patch (NOT Recommended).";
+    useHyprlandPortalInsteadOfWLR = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -51,13 +54,13 @@ in
       };
       wlr = {
         enable = (homeModuleNeedsWLRPortalCompositor || (!(cfg.useHyprlandPortalInsteadOfWLR) && hyprlandInUse));
-        settings = {
-          screencast = {
-            max_fps = 30;
-            chooser_type = "simple";
-            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-          };
-        };
+        # settings = {
+        #   screencast = {
+        #     max_fps = 30;
+        #     chooser_type = "simple";
+        #     chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+        #   };
+        # };
       };
       extraPortals = with pkgs; [
         (mkIf (cfg.defaultPortal == "gtk") xdg-desktop-portal-gtk)
