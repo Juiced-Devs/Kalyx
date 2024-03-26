@@ -1,15 +1,19 @@
 { config, lib, pkgs, ... }:
 
-
 let
   inherit (lib)
+    mapAttrs'
     mkDefault
     mkEnableOption
     mkIf
+    mkMerge
     mkOption
-    types
-    mapAttrs'
     nameValuePair
+    recursiveUpdate
+    types
+    ;
+  inherit (builtins)
+    listToAttrs
     ;
 
   cfg = config.kalyx.vesktop;
@@ -57,26 +61,13 @@ in
         };
       '';
     };
-    apis = mkOption {
-      description = ''APIs required for certain plugins.'';
-      default = { };
-      type = with types; attrsOf (submodule {
-        options.enable = mkEnableOption "Vencord plugin APIs";
-      });
-      example = ''
-                kalyx.vesktop.apis = {
-        	  BadgeAPI.enable = true;
-        	  CommandsAPI.enable = false;
-        	};
-      '';
-    };
     plugins = mkOption {
       description = ''Vencord plugins.'';
       default = { };
       type = with types; attrsOf (submodule {
         options.enable = mkEnableOption "Enable specified plugin.";
         options.settings = mkOption {
-          type = with types; (either attrs str);
+          type = types.attrs;
           default = { };
         };
       });
@@ -97,6 +88,18 @@ in
             };
           };
         };
+      '';
+    };
+    enabledPlugins = mkOption {
+      description = ''List of plugins to enable.''; # Useful for plugins that don't have settings.
+      default = [ ];
+      type = with types; listOf str;
+      example = ''
+        kalyx.vesktop.enabledPlugins = [
+          AlwaysAnimate
+          GifPaste
+          ImageZoom
+        ];
       '';
     };
     notifications = mkOption {
@@ -143,23 +146,7 @@ in
       unstable.vesktop
     ];
 
-    kalyx.vesktop.apis = {
-      # Default all APIs to true, and allow overriding one default to keep all others set.
-      BadgeAPI.enable = mkDefault true;
-      CommandsAPI.enable = mkDefault true;
-      ContextMenuAPI.enable = mkDefault true;
-      MemberListDecoratorsAPI.enable = mkDefault true;
-      MessageAccessoriesAPI.enable = mkDefault true;
-      MessageDecorationsAPI.enable = mkDefault true;
-      MessageEventsAPI.enable = mkDefault true;
-      MessagePopoverAPI.enable = mkDefault true;
-      NoticesAPI.enable = mkDefault true;
-      ServerListAPI.enable = mkDefault true;
-      SettingsStoreAPI.enable = mkDefault true;
-      ChatInputButtonAPI.enable = mkDefault true;
-    };
-
-    home.file = lib.mkMerge ([
+    home.file = mkMerge ([
       (mapAttrs'
         (name: themes: nameValuePair
           ".config/vesktop/themes/${name}.css"
@@ -168,22 +155,24 @@ in
 
       {
         ".config/vesktop/settings.json".text = makeConfig cfg.state;
-        ".config/vesktop/settings/settings.json".text = makeConfig (lib.recursiveUpdate
+        ".config/vesktop/settings/settings.json".text = makeConfig (recursiveUpdate
           cfg.settings
           {
+            notifications = cfg.notifications;
+            cloud = cfg.cloud;
             plugins =
-              (mapAttrs'
-                (name: api: nameValuePair
-                  name
-                  { enabled = api.enable; })
-                cfg.apis) //
+              # Convert enabled plugins list to "plugin":{ "enabled" = true }
+              (listToAttrs (map
+                (plugins: nameValuePair
+                  plugins
+                  { enabled = true; })
+                cfg.enabledPlugins)) //
+              # Map 'settings' attrset
               (mapAttrs'
                 (name: plugin: nameValuePair
                   name
                   ({ enabled = plugin.enable; } // plugin.settings))
                 cfg.plugins);
-            notifications = cfg.notifications;
-            cloud = cfg.cloud;
           }
         );
       }
