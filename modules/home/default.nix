@@ -27,6 +27,7 @@ in
     cursorTheming = import ./theming/cursor.nix;
     theming = import ./theming/theming.nix;
     wallpaper = import ./theming/wallpaper.nix;
+    carla = import ./applications/carla.nix;
     default.imports = combineModules config.flake.homeManagerModules;
   };
 }
