@@ -59,5 +59,7 @@ in
       workspace = lib.concatLists (map (mon: if mon.disable then [] else map (ws: "${builtins.toString ws},monitor:${mon.adapter},default:${if ws == mon.defaultWorkspace then "true" else "false"}") mon.workspaces) cfg.monitors);
       exec-once = [ (let mon = lib.findSingle (x: x.primary) false false cfg.monitors; in if mon != false then "xrandr --output ${mon.adapter} --primary" else "") ];
     };
+
+    kalyx.hyprland.screenshare.defaultMonitorAdapter = let mon = lib.findSingle (x: x.primary) false false cfg.monitors; in if mon != false then mon.adapter else null;
   };
 }
