@@ -26,8 +26,8 @@ in
       description = ''Vencord settings.'';
       default = { };
       type = types.attrs;
-      example = ''
-        kalyx.vesktop.settings = {
+      example = literalExpression ''
+        {
           notifyAboutUpdates = true;
           autoUpdate = true;
           autoUpdateNotification = true;
@@ -41,15 +41,15 @@ in
           enableReactDevtool = false;
           frameless = false;
           transparent = false;
-        };
+        }
       '';
     };
     state = mkOption {
       description = ''Vesktop settings.'';
       default = { };
       type = types.attrs;
-      example = ''
-        kalyx.vesktop.state = {
+      example = literalExpression ''
+        {
           discordBranch = "stable";
           firstLaunch = false;
           arRPC = "on";
@@ -58,7 +58,7 @@ in
           minimizeToTray = false;
           splashTheming = true;
           customTitleBar = false;
-        };
+        }
       '';
     };
     plugins = mkOption {
@@ -71,10 +71,9 @@ in
           default = { };
         };
       });
-      example = ''
-        kalyx.vesktop.plugins = {
-          GifPaste.enable = true;
-          iLoveSpam = false;
+      example = literalExpression ''
+        {
+          iLoveSpam.enable = false;
           ImageZoom = {
             enable = true;
             settings = {
@@ -87,40 +86,44 @@ in
               zoomSpeed = 0.5;
             };
           };
-        };
+        }
       '';
     };
     enabledPlugins = mkOption {
       description = ''List of plugins to enable.''; # Useful for plugins that don't have settings.
       default = [ ];
       type = with types; listOf str;
-      example = ''
-        kalyx.vesktop.enabledPlugins = [
+      example = literalExpression ''
+        [
           AlwaysAnimate
           GifPaste
           ImageZoom
-        ];
+        ]
       '';
     };
     notifications = mkOption {
       description = ''Vencord notification settings.'';
       default = { };
       type = with types; attrsOf (either str int);
-      example = ''
-        timeout = 5000;
-        position = "bottom-right";
-        useNative = "not-focused";
-        logLimit = 50;
+      example = literalExpression ''
+        {
+          timeout = 5000;
+          position = "bottom-right";
+          useNative = "not-focused";
+          logLimit = 50;
+        }
       '';
     };
     cloud = mkOption {
       description = ''Vencord cloud integration settings.'';
       default = { };
       type = types.attrs;
-      example = ''
-        authenticated = true;
-        url = "https://api.vencord.dev";
-        settingsSync = true;
+      example = literalExpression ''
+        {
+          authenticated = true;
+          url = "https://api.vencord.dev";
+          settingsSync = true;
+        }
       '';
     };
     themes = mkOption {
@@ -128,14 +131,17 @@ in
       default = { };
       type = with types; attrsOf (submodule {
         options.css = mkOption {
-          type = types.lines;
+          type = with types; (either lines path);
         };
       });
-      example = ''
-        kalyx.vesktop.themes = {
-          mytheme.css = "custom css";
-          };
-        };
+      example = literalExpression ''
+        {
+          mytheme.css = ./path/to/css;
+          mytheme1.css = '
+            theme line 1
+            theme line 2
+          ';
+        }
       '';
     };
   };
@@ -150,7 +156,10 @@ in
       (mapAttrs'
         (name: themes: nameValuePair
           ".config/vesktop/themes/${name}.css"
-          { text = themes.css; })
+          {
+            text = mkIf (builtins.isString themes.css) themes.css;
+            source = mkIf (builtins.isPath themes.css) themes.css;
+          })
         cfg.themes)
 
       {
