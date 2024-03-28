@@ -106,7 +106,7 @@ in
       {
         assertion = !((lib.findSingle (x: x.adapter == null) false true cfg.monitors) == true);
         message = ''KALYX ERROR:
-- You have two primary monitors set! please remove one.'';
+- You created a monitor without an adapter set.'';
       }
     ];
 

@@ -56,11 +56,12 @@ in
         env = [
           "NIXOS_OZONE_WL,1"
           "wayland,x11"
-          "QT_QPA_PLATFORM,wayland;xcb"
+          "QT_QPA_PLATFORM,QT_QPA_PLATFORM=wayland-egl;xcb"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
           "XDG_CURRENT_DESKTOP,Hyprland"
           "XDG_SESSION_TYPE,wayland"
+          "GDK_BACKEND,wayland"
           "XDG_SESSION_DESKTOP,Hyprland"
           "MOZ_DISABLE_WAYLAND_PROXY,1" # This is a temporary fix because firefox caused a 475GB file to be created on my system. https://bugzilla.mozilla.org/show_bug.cgi?id=1882449
           "MOZ_ENABLE_WAYLAND,1"

@@ -33,9 +33,10 @@ in
 
   config = mkIf (cfg.enable || cfg.virtualCam.enable || (hyprland && hyprlandScreenshare)) {
     kalyx.camera.virtualCam.camNumbers = mkIf hyprlandScreenshare [ 77 78 ];
-    boot.kernelModules = lib.mkIf cfg.virtualCam.enable [ "v4l2loopback" ];
-    boot.extraModulePackages = with config.boot.kernelPackages; [ ( lib.mkIf cfg.virtualCam.enable v4l2loopback) ];
-    boot.extraModprobeConfig = lib.mkIf cfg.virtualCam.enable '' 
+    boot.kernelModules = lib.mkIf (cfg.virtualCam.enable || hyprlandScreenshare) [ "v4l2loopback" ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ ( lib.mkIf (cfg.virtualCam.enable || hyprlandScreenshare) v4l2loopback) ];
+    # TODO: after making scope tape refactor this cause this is bad... \/ \/ \/                              ^ ^ ^
+    boot.extraModprobeConfig = lib.mkIf (cfg.virtualCam.enable || hyprlandScreenshare) '' 
       options v4l2loopback exclusive_caps=1 video_nr=${lib.strings.concatStringsSep "," (map (x: builtins.toString x) cfg.virtualCam.camNumbers )} card_label=VirtualVideoDevice
     '';
   };

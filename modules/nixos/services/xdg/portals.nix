@@ -33,11 +33,6 @@ in
       type = types.enum [ "gtk" "kde" ];
       default = "gtk";
     };
-    
-    useHyprlandPortalInsteadOfWLR = mkOption {
-      type = types.bool;
-      default = true;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -47,25 +42,9 @@ in
     
     xdg.portal = {
       enable = true;
-      config = {
-        common = {
-          default = [ cfg.defaultPortal ];
-        };
-      };
-      wlr = {
-        enable = (homeModuleNeedsWLRPortalCompositor || (!(cfg.useHyprlandPortalInsteadOfWLR) && hyprlandInUse));
-        # settings = {
-        #   screencast = {
-        #     max_fps = 30;
-        #     chooser_type = "simple";
-        #     chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
-        #   };
-        # };
-      };
       extraPortals = with pkgs; [
         (mkIf (cfg.defaultPortal == "gtk") xdg-desktop-portal-gtk)
         (mkIf (cfg.defaultPortal == "kde") xdg-desktop-portal-kde)
-        (mkIf (hyprlandInUse && cfg.useHyprlandPortalInsteadOfWLR) xdg-desktop-portal-hyprland)
       ];
     };
   };
