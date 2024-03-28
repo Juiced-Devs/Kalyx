@@ -18,20 +18,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    # nixpkgs.overlays =
-    # [ (final: prev: let
-    #     mkDiscord = args: pkgs.symlinkJoin {
-    #       name = "discord";
-    #       paths = [
-    #         prev.discord
-    #         (pkgs.writeShellScriptBin "discord" "echo hi")
-    #       ];
-    #     };
-    #   in {
-    #     discord = mkDiscord commandLineArgs;
-    #   })
-    # ];
-
     home.packages = let 
       discordpkg = if cfg.vencordPatch then (pkgs.discord.override {
         withOpenASAR = true;

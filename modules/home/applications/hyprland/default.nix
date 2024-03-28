@@ -55,8 +55,7 @@ in
       in {
         env = [
           "NIXOS_OZONE_WL,1"
-          "wayland,x11"
-          "QT_QPA_PLATFORM,QT_QPA_PLATFORM=wayland-egl;xcb"
+          "QT_QPA_PLATFORM,wayland;xcb"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
           "XDG_CURRENT_DESKTOP,Hyprland"
