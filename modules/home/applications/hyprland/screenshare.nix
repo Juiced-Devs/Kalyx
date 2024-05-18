@@ -40,7 +40,7 @@ in
         genscreenparams = adapter: ''"$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name=="${adapter}") | .x'),$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name=="${adapter}") | .y') $(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name=="${adapter}") | .width')x$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.name=="${adapter}") | .height')"'';
         startscreen = screenparams: ''
           ${pkgs.wf-recorder}/bin/wf-recorder -g ${screenparams} -c mpegts -x rgb24 --muxer=v4l2 --codec=rawvideo --file=/dev/video77 &
-          sleep 1; SDL_VIDEODRIVER="x11" ${pkgs.ffmpeg-full}/bin/ffplay /dev/video77
+          sleep 1; SDL_VIDEODRIVER="x11" ${pkgs.ffmpeg-full}/bin/ffplay /dev/video77 -probesize 500M -analyzeduration 500M
         '';
       in [
         ''${cfg.toggleKeybind},exec,${pkgs.writeScript "screenshareRunner.sh" ''

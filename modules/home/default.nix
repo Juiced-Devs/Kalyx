@@ -17,6 +17,9 @@ in
 
   config.flake.homeManagerModules = {
     hyprland = import ./applications/hyprland/default.nix;
+    thunar = import ./applications/file-managers/thunar.nix;
+    file-roller = import ./applications/file-managers/file-roller.nix;
+    imv = import ./applications/image-viewers/imv.nix;
     hyprlandMappedBinds = import ./applications/hyprland/mapped-binds.nix;
     hyprlandScreenshare = import ./applications/hyprland/screenshare.nix;
     tofi = import ./applications/launchers/tofi/tofi.nix;

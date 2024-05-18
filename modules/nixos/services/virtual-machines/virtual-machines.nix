@@ -92,6 +92,7 @@ rec {
       kernelModules = [ 
         "kvm-${cfg.cpuarch}"
       ];
+      extraModprobeConfig = "options kvm_${cfg.cpuarch} nested=1";
     };
   };
 }
