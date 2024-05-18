@@ -13,7 +13,7 @@ in
   options.kalyx.authentication = {
     enable = mkEnableOption "Kalyx authentication module.";
     keyringToolkit = mkOption {
-      type = types.enum [ "gnome" ];
+      type = types.enum [ "gnome" ]; # TODO: reimpliment kde/qt
       default = "gnome";
     };
     allowPowerOff = mkEnableOption "Allow any user to power off the system.";
@@ -37,7 +37,7 @@ in
 
 
     # GNUPG
-    programs.gnupg = mkIf (cfg.keyringToolkit == "gnupg") {
+    programs.gnupg = {
       agent.enable = true;
       agent.enableBrowserSocket = true;
       agent.enableExtraSocket = true;
@@ -45,7 +45,7 @@ in
       agent.pinentryFlavor = if (cfg.keyringToolkit == "gnome") then "gnome3" else "qt";
     };
 
-    services.yubikey-agent.enable = (cfg.keyringToolkit == "gnupg");
+    # services.yubikey-agent.enable = (cfg.keyringToolkit == "gnupg");
     programs.dconf.enable = true;
     programs.mtr.enable = true;
     
