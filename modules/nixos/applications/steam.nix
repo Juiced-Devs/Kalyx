@@ -34,17 +34,5 @@ in
         ];
       };
     };
-
-    # Home Manager fixes.
-    home-manager.sharedModules = [{
-      
-      # Hyprland steam dropdown menu fix.
-      wayland.windowManager.hyprland.settings = {
-        windowrulev2 = [
-          "stayfocused, title:^()$,class:^(steam)$"
-          "minsize 1 1, title:^()$,class:^(steam)$"
-        ];
-      };
-    }];
   };
 }
