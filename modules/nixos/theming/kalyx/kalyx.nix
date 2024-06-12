@@ -8,10 +8,11 @@ let
     ;
 
   cfg = config.kalyx.branding;
+  kalyxSvg = config.kalyx.neofetch.image.kalyxSvg;
 in
 {
   options.kalyx.branding = {
-    enable = mkEnableOption "DESCRIPTION";
+    enable = mkEnableOption "Enable Kalyx branding";
   };
 
   config = mkIf cfg.enable {
@@ -25,9 +26,14 @@ in
       kalyx = {
         neofetch = {
           enable = lib.mkDefault true;
-          imageSource = lib.mkDefault ./kalyx-ansii;
-          distroName = lib.mkDefault "Kalyx";
+          # Set distro name based on nixpkgs version and system architecture.
+          # (i.e. "Kalyx [Nixos 24.05] x86_64-linux")
+          distroName = lib.mkDefault "Kalyx [Nixos ${config.system.nixos.release}] ${config.nixpkgs.hostPlatform.system}";
           asciiColors = lib.mkDefault "11 3 10 2";
+          image = {
+            source = lib.mkDefault ./kalyx-ansii;
+            size = mkIf kalyxSvg lib.mkDefault "320px";
+          };
         };
       };
     }];
