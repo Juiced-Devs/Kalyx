@@ -41,16 +41,25 @@ rec {
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_zen; # We do this because Linux Zen has better IOMMU group support.
 
     virtualisation = {
-      libvirtd.enable = true;
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm; # only emulates host arch, smaller download
+          runAsRoot = true;
+          swtpm.enable = true; # allows for creating emulated TPM
+          ovmf.packages = [(pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd]; # or use pkgs.OVMFFull.fd, which enables more stuff
+        };
+      };
       spiceUSBRedirection.enable = true;
     };
-
+   
+    programs.virt-manager.enable = true;
     programs.dconf.enable = true;
 
     environment.systemPackages = with pkgs; [
-      virtiofsd
-      virt-manager
-      qemu
       looking-glass-client
     ];
 

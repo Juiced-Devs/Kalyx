@@ -31,11 +31,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    #=# KALYX DEPS #=#
-    kalyx = {
-      theming.cursor.enable = true;
+    xdg.portal = {
+      enable = true;
+      config.common.default = "*";
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+      ];
     };
-    #================#
 
     programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
       wlrobs

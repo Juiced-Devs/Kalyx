@@ -42,7 +42,7 @@ in
       agent.enableBrowserSocket = true;
       agent.enableExtraSocket = true;
       agent.enableSSHSupport = true;
-      agent.pinentryFlavor = if (cfg.keyringToolkit == "gnome") then "gnome3" else "qt";
+      agent.pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
     };
 
     # services.yubikey-agent.enable = (cfg.keyringToolkit == "gnupg");

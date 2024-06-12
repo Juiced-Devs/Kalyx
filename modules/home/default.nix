@@ -27,7 +27,6 @@ in
     neofetch = import ./applications/neofetch.nix;
     vscode = import ./applications/vscode.nix;
     monitors = import ./hardware/monitors.nix;
-    cursorTheming = import ./theming/cursor.nix;
     theming = import ./theming/theming.nix;
     wallpaper = import ./theming/wallpaper.nix;
     default.imports = combineModules config.flake.homeManagerModules;

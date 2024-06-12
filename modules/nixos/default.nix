@@ -34,7 +34,6 @@ in
     printing = import ./hardware/printing.nix;
     virtual-machines = import ./services/virtual-machines/virtual-machines.nix;
     scream = import ./services/virtual-machines/scream.nix;
-    xdgPortals = import ./services/xdg/portals.nix;
     authentication = import ./services/authentication.nix;
     branding = import ./theming/kalyx/kalyx.nix;
     theming = import ./theming/theming.nix;

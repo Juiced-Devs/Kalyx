@@ -12,23 +12,25 @@ in
   options.kalyx.discord = {
     enable = mkEnableOption "discord";
     vencordPatch = mkOption {
-      default = true;
+      default = false;
       type = types.bool;
     };
   };
 
   config = mkIf cfg.enable {
     home.packages = let 
-      discordpkg = if cfg.vencordPatch then (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
+      discordpkg = (pkgs.discord.override {
+        withOpenASAR = false;
+        withVencord = cfg.vencordPatch;
         withTTS = false; # This is terrible and messes with your audio system if on pipewire.
-      }) else pkgs.discord;
+      });
     in [
       (discordpkg.overrideAttrs (oldAttrs: rec {
         desktopItem = oldAttrs.desktopItem.override {exec = "XDG_SESSION_TYPE=x11 discord";};
         installPhase = builtins.replaceStrings ["${oldAttrs.desktopItem}"] ["${desktopItem}"] oldAttrs.installPhase;
       }))
+
+      pkgs.vesktop
     ];
   };
 }

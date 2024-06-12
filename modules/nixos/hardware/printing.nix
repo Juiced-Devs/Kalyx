@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     services.avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
 

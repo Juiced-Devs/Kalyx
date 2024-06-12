@@ -13,8 +13,10 @@ in
 {
   options.kalyx.nvidia = {
     enable = mkEnableOption "Nvidia";
-    # GTX 1650 AND NEWER ONLY
-    open = mkEnableOption "Open Driver";
+    proprietary = mkOption { type = types.bool; default = true; };
+    
+    # GTX 1650 AND NEWER ONL
+    openkernel = mkEnableOption "Open Driver";
 
     cuda = mkEnableOption "Cuda";
 
@@ -28,37 +30,44 @@ in
       initrd.kernelModules = [
         "vfio"
         "vfio_pci"
+      ] ++ (if cfg.proprietary then [
         "nvidia"
         "nvidia_modeset"
         "nvidia_uvm"
         "nvidia_drm"
-      ];
-      kernelParams = [
+      ] 
+      else [
+        "nouveau"
+      ]);
+      kernelParams = [] ++ (if cfg.proprietary then [
 	      "video=vesafb:off,efifb:off"
-      ];
+      ] else []);
     };
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [] ++ (if cfg.proprietary then [
       egl-wayland
       libva-utils
       nvidia-vaapi-driver
-    ];
+    ] else []);
 
-    hardware.opengl = {
-        # VA-API
-        extraPackages = with pkgs; [
-          vaapiVdpau
-          libvdpau-va-gl
+    hardware.opengl.extraPackages = with pkgs; [] ++ (if cfg.proprietary then [
+      vaapiVdpau
+      libvdpau-va-gl
 
-          # Test
-          nvidia-vaapi-driver
-        ];
-      };
+      # Test
+      nvidia-vaapi-driver
+    ] else [
+      mesa
+      libGL
+    ]);
 
-    nixpkgs.config.cudaSupport = cfg.cuda;
+    hardware.opengl.setLdLibraryPath = true;
+
+    nixpkgs.config.cudaSupport = mkIf cfg.proprietary cfg.cuda;
+
 
     environment.sessionVariables = {
-      CUDA_PATH = mkIf cfg.cuda "${pkgs.cudatoolkit}";
+      CUDA_PATH = mkIf (cfg.proprietary && cfg.cuda) "${pkgs.cudatoolkit}";
     };
 
     # (mkIf cfg.waylandFixups {
@@ -75,32 +84,35 @@ in
     # })
 
     # Home Manager fixes.
-    home-manager.sharedModules = [{
-      
+    home-manager.sharedModules = [
+
+    {  
       # Hyprland Nvidia fixes.
       wayland.windowManager.hyprland.settings = {
         env = [
-          "GBM_BACKEND,nvidia-drm"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          "LIBVA_DRIVER_NAME,nvidia"
-          "__GL_VRR_ALLOWED,0"
+          (mkIf cfg.proprietary "GBM_BACKEND,nvidia-drm")
+          (mkIf cfg.proprietary "__GLX_VENDOR_LIBRARY_NAME,nvidia")
+          (mkIf cfg.proprietary "LIBVA_DRIVER_NAME,nvidia")
+          (mkIf cfg.proprietary "__GL_VRR_ALLOWED,0")
           "WLR_NO_HARDWARE_CURSORS,1"
-          "WLR_DRM_NO_ATOMIC,1"
+          (mkIf cfg.proprietary "WLR_DRM_NO_ATOMIC,1")
         ];
       };
-    }];
+    }
 
-    boot.extraModprobeConfig = ''
+    ];
+
+    boot.extraModprobeConfig = if cfg.proprietary then ''
       options nvidia NVreg_PreserveVideoMemoryAllocations=1
-    '';
+    '' else '''';
 
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ 
+      (mkIf cfg.proprietary "nvidia")
+    ];
 
-    programs.hyprland.enableNvidiaPatches = lib.mkDefault true;
-
-    hardware.nvidia = {
-      modesetting.enable = true; #! THIS IS REQUIRED FOR HYPRLAND
-      open = cfg.open;
+    hardware.nvidia = mkIf cfg.proprietary {
+      modesetting.enable = true; #! THIS IS REQUIRED FOR WAYLAND 
+      open = cfg.openkernel;
       # nvidiaSettings = true;
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
