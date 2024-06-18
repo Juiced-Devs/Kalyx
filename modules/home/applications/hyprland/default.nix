@@ -22,6 +22,11 @@ in
   options.kalyx.hyprland = {
     enable = mkEnableOption "Hyprland";
 
+    defaultPortal = mkOption {
+      type = types.package;
+      default = pkgs.xdg-desktop-portal-kde;
+    };
+
     clipboard = {
       enable = mkOption {
         type = types.bool;
@@ -35,7 +40,7 @@ in
       enable = true;
       config.common.default = "*";
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+        cfg.defaultPortal
         xdg-desktop-portal-hyprland
       ];
     };

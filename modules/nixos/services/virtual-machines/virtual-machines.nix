@@ -90,6 +90,7 @@ rec {
     boot = {
       kernelParams = mkMerge [
         [
+          "video=vesafb:off,efifb:off"
           "iommu=pt"
           (mkIf cfg.acspatch "pcie_acs_override=downstream,multifunction")
           "kvm.ignore_msrs=1"
@@ -102,6 +103,10 @@ rec {
         "kvm-${cfg.cpuarch}"
       ];
       extraModprobeConfig = "options kvm_${cfg.cpuarch} nested=1";
+      initrd.kernelModules = [
+        "vfio"
+        "vfio-pci"
+      ];
     };
   };
 }
