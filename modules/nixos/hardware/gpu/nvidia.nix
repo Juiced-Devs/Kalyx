@@ -59,6 +59,7 @@ in
     ] else [
       mesa
       libGL
+      libvdpau-va-gl
     ]);
 
     hardware.opengl.setLdLibraryPath = true;
