@@ -29,6 +29,7 @@ in
     monitors = import ./hardware/monitors.nix;
     theming = import ./theming/theming.nix;
     wallpaper = import ./theming/wallpaper.nix;
+    vesktop = import ./applications/vesktop.nix;
     default.imports = combineModules config.flake.homeManagerModules;
   };
 }
