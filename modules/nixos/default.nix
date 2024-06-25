@@ -19,7 +19,6 @@ in
     flakes = import ./flakes.nix;
     hyprlandNixosCompatability = import ./applications/home-compatability/hyprland.nix;
     steam = import ./applications/steam.nix;
-    movie-web = import ./movie-web.nix;
     amd = import ./hardware/cpu/amd.nix;
     intel = import ./hardware/cpu/intel.nix;
     amdgpu = import ./hardware/gpu/amdgpu.nix;
