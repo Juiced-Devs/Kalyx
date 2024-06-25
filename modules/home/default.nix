@@ -22,7 +22,6 @@ in
     imv = import ./applications/image-viewers/imv.nix;
     hyprlandMappedBinds = import ./applications/hyprland/mapped-binds.nix;
     hyprlandScreenshare = import ./applications/hyprland/screenshare.nix;
-    tofi = import ./applications/launchers/tofi/tofi.nix;
     discord = import ./applications/discord.nix;
     neofetch = import ./applications/neofetch.nix;
     vscode = import ./applications/vscode.nix;

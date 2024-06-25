@@ -95,7 +95,7 @@ in
           (mkIf cfg.proprietary "__GLX_VENDOR_LIBRARY_NAME,nvidia")
           (mkIf cfg.proprietary "LIBVA_DRIVER_NAME,nvidia")
           (mkIf cfg.proprietary "__GL_VRR_ALLOWED,0")
-          "WLR_NO_HARDWARE_CURSORS,1"
+          (mkIf cfg.proprietary "WLR_NO_HARDWARE_CURSORS,1")
           (mkIf cfg.proprietary "WLR_DRM_NO_ATOMIC,1")
         ];
       };

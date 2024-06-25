@@ -26,7 +26,7 @@ in
       });
     in [
       (discordpkg.overrideAttrs (oldAttrs: rec {
-        desktopItem = oldAttrs.desktopItem.override {exec = "XDG_SESSION_TYPE=x11 discord";};
+        desktopItem = oldAttrs.desktopItem.override {exec = "env XDG_SESSION_TYPE=x11 discord";};
         installPhase = builtins.replaceStrings ["${oldAttrs.desktopItem}"] ["${desktopItem}"] oldAttrs.installPhase;
       }))
 
