@@ -8,7 +8,6 @@ let
     ;
 
   cfg = config.kalyx.branding;
-  kalyxSvg = config.kalyx.neofetch.image.kalyxSvg;
 in
 {
   options.kalyx.branding = {
@@ -32,7 +31,6 @@ in
           asciiColors = lib.mkDefault "11 3 10 2";
           image = {
             source = lib.mkDefault ./kalyx-ansii;
-            size = mkIf kalyxSvg lib.mkDefault "320px";
           };
         };
       };

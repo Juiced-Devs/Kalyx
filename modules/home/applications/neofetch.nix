@@ -104,7 +104,7 @@ in
       image_size=${cfg.image.size}
 
       ${if (cfg.asciiColors != null) then ("ascii_colors=(${cfg.asciiColors})") else ""}
-      ${if (cfg.image.kalySvg) then ("image_source=${../../../res/kalyx.svg}") else
+      ${if (cfg.image.kalyxSvg) then ("image_source=${../../../res/kalyx.svg}") else
         if (cfg.image.source != null) then ("image_source=${cfg.image.source}") else ""}
     '';
   };
