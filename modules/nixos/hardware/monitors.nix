@@ -12,41 +12,52 @@ let
   # These changes apply to home manager and nixos, meaning you can setup your TTY's to follow your monitor configuration automatically.
   monitorSubmodule = types.submodule {
     options = {
-      disable = mkOption { # This will ignore ALL other options that are set and will simply disable this monitor.
-        type = types.bool;
-        default = false;
-      };
+      disable = mkEnableOption "Disable the monitor.";
+      flipped = mkEnableOption "Flip the monitor horizontally."; # TODO: Warn when using (cursed).
+      primary = mkEnableOption "Set this monitor as the default";
+      useVirtualMonitorProxy = mkEnableOption "Create a virtual display and cast that to this display."; # TODO: Implement this.
 
       adapter = mkOption {
-        type = types.nullOr types.str; # This is the name of your display port "DP-X", "HDMI-A-X", etc. You can get the adapter by using wlr-randr.
-        default = null;
+        type = types.str;
+        default = "";
       };
 
       resolution = mkOption {
+        description = ''
+          Set the display resolution.
+
+          Accepted values are "maxrefreshrate", "maxresolution",
+          "preffered", or a specified pixel ratio, such as "1920x1080".
+        '';
         type = types.str;
-        default = "preffered"; # This can be 'maxrefreshrate', 'maxresolution', 'preffered' or a specific resolution such as '1920x1080' 
-      };                       # if you specify a verbatum monitor resolution you need to set a framerate.
+        default = "preffered";
+      };
 
       framerate = mkOption {
         type = types.nullOr types.int;
         default = null;
       };
 
-      primary = mkEnableOption "Set this monitor as the default";
 
       position = mkOption {
+        description = ''
+          Set the monitor's position.
+
+          Accepted values are 'automatic' or XY coordinates (i.e 0x0, 1920x1080)
+        '';
         type = types.str;
-        default = "automatic"; # This can be 'automatic' or '0x0' where the first 0 is the x position and the second is the y.
-      };                       # TODO: add functionality for 'leftof DP-X', 'rightof DP-X', etc.
+        default = "automatic"; # TODO: add functionality for 'leftof DP-X', 'rightof DP-X', etc.
+      };
 
       mirror = mkOption {
-        type = types.nullOr types.str; # If you set this to the name of a display it will mirror that display, this and useVirtualMonitorProxy cannot be used together.
+        description = ''Mirror the specified display.'';
+        type = types.nullOr types.str;
         default = null;
       };
 
       scale = mkOption {
         type = types.int;
-        default = 1; # For HIDPI monitors, this will scale the size of the UI elements.
+        default = 1;
       };
 
       rotation = mkOption {
@@ -65,29 +76,27 @@ let
       };
 
       bitdepth = mkOption {
-        type = types.enum [ 8 10 ]; # Allows you to change the bitdepth
+        type = types.enum [ 8 10 ];
         default = 8;
       };
-
-      flipped = mkEnableOption "Flip Monitor"; # This will flip the monitor horizontally making a 'mirrored' effect, e.g text will be backwards and unreadable.
-
-      useVirtualMonitorProxy = mkEnableOption "Create a virtual display and cast that to this display."; # TODO: Impliment this.
     };
   };
 
   cfg = config.kalyx;
+  # Remove the list surrounding cfg.monitors
+  mon = builtins.foldl' (acc: attrs: acc // attrs) {} cfg.monitors;
 in
 {
   # TODO: add automatic TTY adjustments.
   options.kalyx = {
     monitors = mkOption {
       type = types.listOf monitorSubmodule;
-      default = [
-        # See submodule above for configuration options.
-      ];
+      default = [ /* See submodule above for configuration options. */ ];
     };
-    defaultMonitor = mkOption { # This sets the options for all monitors plugged in but not specified.
-      type = monitorSubmodule;  # It takes the same options as regular monitors but the adapter, and workspace options do nothing.
+
+    defaultMonitor = mkOption {
+      description = ''Set options for all monitors plugged in but not configured.'';
+      type = monitorSubmodule;
       default = {
         resolution = "preffered";
         position = "automatic";
@@ -98,15 +107,20 @@ in
   config = {
     assertions = [
       {
-        assertion = !((lib.findSingle (x: x.primary) false true cfg.monitors) == true);
-        message = ''KALYX ERROR:
-- You have two primary monitors set! please remove one.'';
+        # Check for multiple monitors being set as primary.
+        assertion = !(lib.findSingle (x: x.primary) false true cfg.monitors);
+        message = ''
+          KALYX ERROR:
+          More than one primary monitor was set.
+        '';
       }
-
       {
-        assertion = !((lib.findSingle (x: x.adapter == null) false true cfg.monitors) == true);
-        message = ''KALYX ERROR:
-- You created a monitor without an adapter set.'';
+        # Check if refreshRate is unset, and error when using a manual resolution
+        assertion = (builtins.any (bool: bool == true) (if mon.framerate == null then map (res: res == mon.resolution) [ "maxresolution" "maxrefreshrate" "preffered" ] else [true]));
+        message = ''
+          KALYX ERROR:
+          Manual screen resolution requires setting a refresh rate.
+        '';
       }
     ];
 
@@ -119,7 +133,7 @@ in
       monitorList = cfg.monitors;
       defaultMon = cfg.defaultMonitor;
     in
-    [{ # something
+    [{
       kalyx.monitors.disableWarning = lib.mkDefault (cfg.monitors != []);
       kalyx.monitors.monitors = monitorList;
       kalyx.monitors.defaultMonitor = defaultMon;
